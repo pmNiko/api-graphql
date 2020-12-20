@@ -1,0 +1,28 @@
+Las mutaciones son consultas de insert y update 
+
+Asi como definimos Query, en este caso vamos a definir 
+Mutation en schema.js
+
+  type Mutation {
+    // esta recibira un param de tipo TaskInput
+    // y devolvera la tarea creada 
+    createTask(input: TaskInput): Task
+  }
+
+  // definimos el tipo TaskInput
+  input TaskInput {
+    title: String!
+    description: String!
+    number: Int
+  }
+
+  Ahora en resolver.js vamos a reolver la petición
+
+    Mutation: {
+      createTask(_, { input }) {
+        // vamos a generar la prop _id
+        input._id = tasks.length;
+        tasks.push(input);
+        return input;
+      },
+    },

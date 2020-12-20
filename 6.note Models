@@ -1,0 +1,87 @@
+La carpeta models es configuracón relacionada a Mongo DB
+Aca adentro vamos a definir los modelos que van a ser almacenados 
+nuestra base de datos 
+
+Dentro de un archivo User.js definimos el Schema del User
+import { Schema, model } from "mongoose";
+
+// Definición del schema del user
+const userSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  lastname: String,
+  age: Number,
+});
+
+Para poder utilizarlo debemos crear el model
+export default model('User', userSchema);
+
+Bien ahora en el schema.js vamos a definir la ruta 
+    type Mutation {
+      createTask(input: TaskInput): Task
+      createUser(input: UserInput): User     <---
+    }
+Pero tenemos dos tipos de datos undefine, asique los vamos a crear 
+  input UserInput {
+    name: String!
+    lastname: String!
+    age: Int!
+  }
+
+  type User{
+    _id: ID
+    name: String!
+    lastname: String!
+    age: Int!
+  }
+
+Por ultimo definimos el resolver 
+  // Definimos la resolución de las Mutation
+  Mutation: {
+    createTask(_, { input }) {
+      input._id = tasks.length;
+      tasks.push(input);
+      return input;
+    },
+
+    // Esta función es de tipo asincrona ya que se conecta a la BD
+    async createUser(_, { input }) {     <----
+      let newUser = new User(input);     <----
+      await newUser.save();              <----
+      return newUser;                    <----
+    },
+  },
+
+  Con esta definición ya podremos crear nuestros usuarios. Una vez realicemos 
+  el primer insert podremos ver la instancia de la BD por consola y 
+  la collection de users dentro. Importante la BD mongographql no sera 
+  intanciada hasta que no contenga datos dentro, esto es propio de mongoDB
+
+  Ahora vamos a realizar una Query para ver los users creados en la BD
+  en el resolver.js en la parte de Query 
+    Query: {
+
+    ....
+
+    async Users() {
+      return await User.find();
+    },
+
+  },
+
+  y en el schema.js definimos la ruta 
+
+  const typeDefs = `
+    type Query {
+      hello: String
+      greet(name: String!): String
+      tasks: [Task]
+      Users: [User]  <----
+    }
+
+    .....
+  }
+
+  1:16:55

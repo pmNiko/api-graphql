@@ -1,0 +1,30 @@
+Ahora pasamos a instalar graphql con 
+-> npm install graphql express-graphql graphql-tools
+
+Una vez instalados los modulos pasamos a desarrollar en index.js
+vamos a utilizar el modulo graphqlHTTP para poder procesar consultas 
+a travez de una herramienta de graphql
+
+import { graphqlHTTP } from "express-graphql";
+
+const schema = {}; // Este lo reemplazaremos por un archivo aislado
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    graphiql: true,
+    schema: schema,
+  })
+);
+
+Creamos el schema.js para definir los tipos de datos que voy a 
+poder consultar desde mi cliente 
+  const typeDefs = `
+    
+  `;
+
+Este concepto se unira a los resolvers que seran los encargados de 
+resolver que sucedera al consultar los tipos de datos.
+Haciendo una analogía con la arquitectura rest:
+  -> schema sería la configuración de rutas 
+  -> resolvers sería el controlador de nuestro backend
+  

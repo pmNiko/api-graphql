@@ -1,0 +1,45 @@
+Vamos a crear un array de tareas para poder consultar datos
+Creamos un array de tareas en un archivos sample 
+
+Lo importamos en resolvers que sera el encargado de resolver 
+la petición segun la ruta.
+
+Luego en schema.js definimos la ruta ruta tasks con el esquema de datos.
+Pero nuestro tipo de dato no existe, puesto que es un array de Task, 
+por lo tanto procedemos a crearlo.
+
+  const typeDefs = `
+    type Query {
+      hello: String
+      greet(name: String!): String
+      tasks: [Task]
+    }
+
+    type Task {
+      _id: ID
+      title: String!  <- el signo significa que es requerido
+      description: String!
+      number: Int
+    }
+  `;
+
+Ahora ya hemos definido el esquema que puedo consultar desde el cliente,
+pero nos falta definir el resolver 
+ en el resolver.js vamos a definir que sera lo que retornaremos
+
+  export const resolvers = {
+    // Definimos la resolución de las consultas
+    Query: {
+      hello: () => {
+        return "Hello World with GraphQL";
+      },
+      // destructuro de args su prop name
+      greet(root, { name }) {
+        console.log(name);
+        return `Hello ${name}`;
+      },
+      tasks() {
+        return tasks;
+      },
+    },
+  };

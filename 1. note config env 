@@ -1,0 +1,47 @@
+Para comenzar a crear un proyecto en node colocamos
+-> npm init -y
+
+Pasamos a crear un servidor de node con express
+-> npm i express  //Esto lo adosa como dependencia 
+
+Luego creamos la carpeta src y dentro index.js
+y lo configuramos
+
+Antes de instalar graphql instalamos babel
+-> npm install --save-dev @babel/core @babel/cli @babel/preset-env
+esto sirve para utilizar js en sus ultimas versiones
+creamos un archivo .babelrc y dentro la configuración 
+
+Ahora para ejecutar node con babel instalamos un complemento
+-> npm install --save-dev @babel/node
+Por ultimo configuramos nuestro package.json con babel
+  "scripts": {
+    "build": "babel src -d dist --source-maps",
+    "start": "babel-node src/index.js"
+  },
+
+Instalamos una herramienta para escuchar los cambios de nuestro servidor
+-> npm i nodemon -D
+Cambiamos ahora nuestro package.json 
+  "scripts": {
+    "build": "babel src -d dist --source-maps",
+    // esta linea para que nuestro serve se refresque ante cambios 
+    "start": "nodemon src/index.js --exec babel-node",
+    // y con serve para que ejecute nuetstro codigo de dist
+    "serve": "node dist/index.js"
+  },
+
+Adicionalmente podemos instalar un modulo para la eliminacón de carpetas
+esto nos permite eliminar la carpeta dist por consola 
+-> npm i rimraf
+  "scripts": {
+    "build": "babel src -d dist --source-maps",
+    "start": "nodemon src/index.js --exec babel-node",
+    "serve": "node dist/index.js",
+    "clean": "rimraf dist"
+  },
+
+Con esto ya tenemos nuestro entorno de desarrollo de ecmascript 2019 configurado
+
+
+
