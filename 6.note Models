@@ -18,11 +18,13 @@ const userSchema = new Schema({
 Para poder utilizarlo debemos crear el model
 export default model('User', userSchema);
 
+   ------     INSERT   Schema -------
 Bien ahora en el schema.js vamos a definir la ruta 
     type Mutation {
       createTask(input: TaskInput): Task
       createUser(input: UserInput): User     <---
     }
+
 Pero tenemos dos tipos de datos undefine, asique los vamos a crear 
   input UserInput {
     name: String!
@@ -37,6 +39,7 @@ Pero tenemos dos tipos de datos undefine, asique los vamos a crear
     age: Int!
   }
 
+   ------   INSERT Resolver   --------
 Por ultimo definimos el resolver 
   // Definimos la resolución de las Mutation
   Mutation: {
@@ -59,6 +62,8 @@ Por ultimo definimos el resolver
   la collection de users dentro. Importante la BD mongographql no sera 
   intanciada hasta que no contenga datos dentro, esto es propio de mongoDB
 
+
+  ------ Get Users Resolver ------- 
   Ahora vamos a realizar una Query para ver los users creados en la BD
   en el resolver.js en la parte de Query 
     Query: {
@@ -71,7 +76,8 @@ Por ultimo definimos el resolver
 
   },
 
-  y en el schema.js definimos la ruta 
+ ------ Get Users Schema ------- 
+ En el schema.js definimos la ruta 
 
   const typeDefs = `
     type Query {
@@ -84,4 +90,3 @@ Por ultimo definimos el resolver
     .....
   }
 
-  1:16:55

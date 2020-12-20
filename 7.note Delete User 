@@ -1,0 +1,18 @@
+Creamos la ruta Delete de User 
+
+ ------- Delete user Schema --------
+type Mutation {
+  // creamos la funcion que recibira como param el id de tipo ID
+  // y devolvera el User eliminado 
+  deleteUser(_id: ID): User
+}
+
+ ------- Delete user Resolver  --------
+  // Definimos la resolución de las Mutation
+  Mutation: {
+   ...
+    // Esta función eliminará un User mediante un ID como param
+    async deleteUser(_, { _id }) {
+      return await User.findByIdAndDelete(_id);
+    },
+  },

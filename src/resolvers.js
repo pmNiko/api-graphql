@@ -41,5 +41,13 @@ export const resolvers = {
       await newUser.save();
       return newUser;
     },
+    // Esta función eliminará un User mediante un ID como param
+    async deleteUser(_, { _id }) {
+      return await User.findByIdAndDelete(_id);
+    },
+    // Esta función actualiza un User mediante un ID como param
+    async updateUser(_, { _id, input }) {
+      return await User.findByIdAndUpdate(_id, input, { new: true });
+    },
   },
 };

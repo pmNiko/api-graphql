@@ -1,4 +1,9 @@
 import mongoose from "mongoose";
+// con esta linea quitamos el error de
+/*  DeprecationWarning: collection.findAndModify is deprecated. 
+    Use findOneAndUpdate, findOneAndReplace or 
+    findOneAndDelete instead?*/
+mongoose.set("useFindAndModify", false);
 
 // como es una funcción asincrona vamos a utilizar async await
 export async function connect() {

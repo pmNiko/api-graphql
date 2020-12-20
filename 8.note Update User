@@ -1,0 +1,17 @@
+Para editar las prop de un User vamos a realizar el Update 
+
+------ UPDATE User Schema --------
+type Mutation {
+  updateUser(_id: ID, input: UserInput): User
+}
+
+------ UPDATE User Resolver  --------
+  // Definimos la resolución de las Mutation
+  Mutation: {
+    ....
+    // Esta función actualiza un User mediante un ID como param
+    async updateUser(_, { _id, input }) {
+      // Para que devuelva el User modificado debo pasar como param {new: true}
+      return await User.findByIdAndUpdate(_id, input, { new: true });
+    },
+  },
